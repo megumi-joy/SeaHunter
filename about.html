@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,8 +25,8 @@
 
         header {
             height: 60vh;
-            background: linear-gradient(rgba(5, 5, 16, 0.7), rgba(5, 5, 16, 1)), 
-                        url('screenshots/Screenshot_4_Battle.png') center/cover;
+            background: linear-gradient(rgba(5, 5, 16, 0.7), rgba(5, 5, 16, 1)),
+                url('screenshots/Screenshot_4_Battle.png') center/cover;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -116,20 +117,23 @@
 
         .cta-button {
             display: inline-block;
-            padding: 15px 40px;
-            background-color: var(--neon-blue);
-            color: var(--graphite);
+            padding: 12px 30px;
+            border: 2px solid var(--neon-blue);
+            background-color: transparent;
+            color: var(--neon-blue);
             text-decoration: none;
             font-weight: bold;
-            border-radius: 30px;
+            border-radius: 5px;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-top: 30px;
-            transition: box-shadow 0.3s ease;
+            margin-top: 20px;
+            transition: all 0.3s ease;
         }
 
         .cta-button:hover {
-            box-shadow: 0 0 20px var(--neon-blue);
+            background-color: var(--neon-blue);
+            color: var(--graphite);
+            box-shadow: 0 0 15px var(--neon-blue);
         }
 
         footer {
@@ -141,6 +145,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <header>
@@ -153,11 +158,14 @@
         <div class="grid">
             <div class="card">
                 <h2>Master the Tides</h2>
-                <p>Sea Hunter is a premium turn-based strategy game where every card is a mission-critical asset. Deploy your frontline, manage your reserve fleet, and outmaneuver the AI in high-stakes naval engagements.</p>
+                <p>Sea Hunter is a premium turn-based strategy game where every card is a mission-critical asset. Deploy
+                    your frontline, manage your reserve fleet, and outmaneuver the AI in high-stakes naval engagements.
+                </p>
             </div>
             <div class="card">
                 <h2>Godify Studio Tech</h2>
-                <p>Powered by our advanced **Godify** automation pipeline, Sea Hunter delivers consistent, high-fidelity tactical visuals and seamless cross-platform performance from Web to mobile.</p>
+                <p>Powered by our advanced **Godify** automation pipeline, Sea Hunter delivers consistent, high-fidelity
+                    tactical visuals and seamless cross-platform performance from Web to mobile.</p>
             </div>
         </div>
 
@@ -204,4 +212,5 @@
     </footer>
 
 </body>
+
 </html>
