@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Sea Hunter | Tactical Naval Combat</title>
+    <style>
+        :root {
+            --neon-blue: #00f3ff;
+            --graphite: #1a1a1a;
+            --deep-sea: #050510;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+
+        body {
+            background-color: var(--deep-sea);
+            color: var(--white);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            height: 60vh;
+            background: linear-gradient(rgba(5, 5, 16, 0.7), rgba(5, 5, 16, 1)), 
+                        url('screenshots/Screenshot_4_Battle.png') center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-bottom: 2px solid var(--neon-blue);
+            box-shadow: 0 0 20px var(--neon-blue);
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            color: var(--neon-blue);
+            text-shadow: 0 0 15px var(--neon-blue);
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        .card {
+            background: var(--glass);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-blue);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 50px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--glass);
+            aspect-ratio: 16 / 9;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: var(--neon-blue);
+            color: var(--graphite);
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 30px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .cta-button:hover {
+            box-shadow: 0 0 20px var(--neon-blue);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            opacity: 0.5;
+            font-size: 0.8rem;
+            border-top: 1px solid var(--glass);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Sea Hunter</h1>
+        <p class="tagline">The Ultimate Tactical Naval Card Duel</p>
+        <a href="index.html" class="cta-button">Play Now</a>
+    </header>
+
+    <div class="container">
+        <div class="grid">
+            <div class="card">
+                <h2>Master the Tides</h2>
+                <p>Sea Hunter is a premium turn-based strategy game where every card is a mission-critical asset. Deploy your frontline, manage your reserve fleet, and outmaneuver the AI in high-stakes naval engagements.</p>
+            </div>
+            <div class="card">
+                <h2>Godify Studio Tech</h2>
+                <p>Powered by our advanced **Godify** automation pipeline, Sea Hunter delivers consistent, high-fidelity tactical visuals and seamless cross-platform performance from Web to mobile.</p>
+            </div>
+        </div>
+
+        <h2 style="text-align: center; color: var(--neon-blue);">Tactical Briefing</h2>
+        <div class="gallery">
+            <div class="gallery-item">
+                <img src="screenshots/Screenshot_1_Lobby.png" alt="Lobby">
+                <div class="gallery-caption">Strategic Command Center</div>
+            </div>
+            <div class="gallery-item">
+                <img src="screenshots/Screenshot_2_Setup.png" alt="Setup">
+                <div class="gallery-caption">Fleet Deployment Phase</div>
+            </div>
+            <div class="gallery-item">
+                <img src="screenshots/Screenshot_3_Tactics.png" alt="Tactics">
+                <div class="gallery-caption">Tactical Analysis Engine</div>
+            </div>
+            <div class="gallery-item">
+                <img src="screenshots/Screenshot_4_Battle.png" alt="Battle">
+                <div class="gallery-caption">Heat of Engagement</div>
+            </div>
+            <div class="gallery-item">
+                <img src="screenshots/Screenshot_5_Island.png" alt="Island">
+                <div class="gallery-caption">Global Island Conquest</div>
+            </div>
+            <div class="gallery-item">
+                <img src="screenshots/Screenshot_6_Stealth.png" alt="Stealth">
+                <div class="gallery-caption">Silent Submarine Strikes</div>
+            </div>
+            <div class="gallery-item">
+                <img src="screenshots/Screenshot_7_Analysis.png" alt="Analysis">
+                <div class="gallery-caption">Deep Learning Metrics</div>
+            </div>
+            <div class="gallery-item">
+                <img src="screenshots/Screenshot_8_Result.png" alt="Victory">
+                <div class="gallery-caption">Match Result & Rewards</div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 Megumi Joy Godot Studio. All Rights Reserved. <br>
+        <a href="privacy.html" style="color: var(--neon-blue);">Privacy Policy</a>
+    </footer>
+
+</body>
+</html>
