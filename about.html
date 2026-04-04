@@ -12,37 +12,70 @@
             --deep-sea: #050510;
             --white: #ffffff;
             --glass: rgba(255, 255, 255, 0.05);
+            --bg-color: var(--deep-sea);
+            --text-color: var(--white);
+            --accent-color: var(--neon-blue);
+            --card-bg: var(--glass);
+        }
+
+        body.light-theme {
+            --bg-color: #f5f7fa;
+            --text-color: #2d3436;
+            --deep-sea: #f5f7fa;
+            --glass: rgba(0, 0, 0, 0.05);
+            --accent-color: #0984e3;
         }
 
         body {
-            background-color: var(--deep-sea);
-            color: var(--white);
+            background-color: var(--bg-color);
+            color: var(--text-color);
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
             line-height: 1.6;
             overflow-x: hidden;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 10px 20px;
+            border: 2px solid var(--accent-color);
+            border-radius: 20px;
+            background: transparent;
+            color: var(--accent-color);
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--accent-color);
+            color: white;
         }
 
         header {
             height: 60vh;
-            background: linear-gradient(rgba(5, 5, 16, 0.7), rgba(5, 5, 16, 1)),
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)),
                 url('screenshots/Screenshot_4_Battle.png') center/cover;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            border-bottom: 2px solid var(--neon-blue);
-            box-shadow: 0 0 20px var(--neon-blue);
+            border-bottom: 2px solid var(--accent-color);
+            box-shadow: 0 0 20px var(--accent-color);
         }
 
         h1 {
             font-size: 4rem;
             margin: 0;
             text-transform: uppercase;
-            letter-spacing: 10px;
-            color: var(--neon-blue);
-            text-shadow: 0 0 15px var(--neon-blue);
+            letter-spacing: 12px;
+            color: var(--accent-color);
+            text-shadow: 0 0 15px var(--accent-color);
         }
 
         .tagline {
@@ -75,7 +108,7 @@
 
         .card:hover {
             transform: translateY(-5px);
-            border-color: var(--neon-blue);
+            border-color: var(--accent-color);
         }
 
         .gallery {
@@ -118,9 +151,9 @@
         .cta-button {
             display: inline-block;
             padding: 12px 30px;
-            border: 2px solid var(--neon-blue);
+            border: 2px solid var(--accent-color);
             background-color: transparent;
-            color: var(--neon-blue);
+            color: var(--accent-color);
             text-decoration: none;
             font-weight: bold;
             border-radius: 5px;
@@ -131,9 +164,9 @@
         }
 
         .cta-button:hover {
-            background-color: var(--neon-blue);
-            color: var(--graphite);
-            box-shadow: 0 0 15px var(--neon-blue);
+            background-color: var(--accent-color);
+            color: var(--white);
+            box-shadow: 0 0 15px var(--accent-color);
         }
 
         footer {
@@ -148,10 +181,12 @@
 
 <body>
 
+    <button class="theme-toggle" onclick="toggleTheme()">Comfort Mode</button>
+
     <header>
         <h1>Sea Hunter</h1>
         <p class="tagline">The Ultimate Tactical Naval Card Duel</p>
-        <a href="index.html" class="cta-button">Play Now</a>
+        <a href="index.html" class="cta-button">Launch Engine</a>
     </header>
 
     <div class="container">
@@ -169,7 +204,7 @@
             </div>
         </div>
 
-        <h2 style="text-align: center; color: var(--neon-blue);">Tactical Briefing</h2>
+        <h2 style="text-align: center; color: var(--accent-color); letter-spacing: 3px;">TACTICAL BRIEFING</h2>
         <div class="gallery">
             <div class="gallery-item">
                 <img src="screenshots/Screenshot_1_Lobby.png" alt="Lobby">
@@ -208,9 +243,28 @@
 
     <footer>
         &copy; 2026 Megumi Joy Godot Studio. All Rights Reserved. <br>
-        <a href="privacy.html" style="color: var(--neon-blue);">Privacy Policy</a>
+        <a href="privacy.html" style="color: var(--accent-color);">Privacy Policy</a>
     </footer>
 
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('light-theme');
+            const btn = document.querySelector('.theme-toggle');
+            if (document.body.classList.contains('light-theme')) {
+                btn.textContent = 'Tactical Mode';
+                localStorage.setItem('theme', 'light');
+            } else {
+                btn.textContent = 'Comfort Mode';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load preference
+        if (localStorage.getItem('theme') === 'light') {
+            document.body.classList.add('light-theme');
+            document.querySelector('.theme-toggle').textContent = 'Tactical Mode';
+        }
+    </script>
 </body>
 
 </html>
