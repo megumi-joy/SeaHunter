@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Release Notes | Sea Hunter</title>
+    <style>
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-green: #39ff14;
+            --graphite: #1a1a1a;
+            --deep-sea: #050510;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.05);
+            --bg-color: var(--deep-sea);
+            --text-color: var(--white);
+            --accent-color: var(--neon-blue);
+            --nav-bg: rgba(5, 5, 16, 0.9);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            line-height: 1.6;
+            padding-top: 80px;
+            /* Space for nav */
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            opacity: 1;
+            color: var(--accent-color);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .page-header {
+            margin-bottom: 50px;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.3);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin: 0;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .accent {
+            color: var(--accent-color);
+        }
+
+        /* --- Release Item --- */
+        .release-item {
+            margin-bottom: 60px;
+            background: linear-gradient(145deg, rgba(26, 26, 26, 0.6), rgba(10, 10, 10, 0.8));
+            border-left: 4px solid var(--accent-color);
+            padding: 30px;
+            border-radius: 0 12px 12px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .release-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--glass);
+            padding-bottom: 15px;
+        }
+
+        .version {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .date {
+            color: #888;
+            font-style: italic;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-right: 10px;
+        }
+
+        .tag.feature {
+            background: rgba(57, 255, 20, 0.2);
+            color: var(--neon-green);
+            border: 1px solid var(--neon-green);
+        }
+
+        .tag.fix {
+            background: rgba(255, 49, 49, 0.2);
+            color: var(--neon-red);
+            border: 1px solid var(--neon-red);
+        }
+
+        .tag.system {
+            background: rgba(0, 243, 255, 0.2);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+        }
+
+        .release-content h3 {
+            font-size: 1.2rem;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            color: #e0e0e0;
+        }
+
+        .release-content ul {
+            padding-left: 20px;
+            color: #ccc;
+        }
+
+        .release-content li {
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            /* Add hamburger later if needed */
+            .release-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">SEA HUNTER</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="game.html">Play Game</a>
+            <a href="about.html">Game Manual</a>
+            <a href="releases.html" class="active">Release Notes</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Release <span class="accent">History</span></h1>
+            <p style="color: #aaa; font-size: 1.1rem;">Changelog, updates, and tactical improvements to the Sea Hunter
+                framework.</p>
+        </div>
+
+        <div class="release-item">
+            <div class="release-header">
+                <div>
+                    <h2 class="version">v1.1.0 - Mobile Command Update</h2>
+                </div>
+                <div class="date">April 2026</div>
+            </div>
+            <div class="release-content">
+                <p>This major update brings Sea Hunter fully to mobile browsers, overhauling the Touch UX and fixing
+                    deep game logic state issues.</p>
+
+                <h3><span class="tag feature">UX Redesign</span> New Features</h3>
+                <ul>
+                    <li><b>Dimension-Aware Scaling</b>: UI now calculates scale based on `min(viewport_x, viewport_y)`,
+                        ensuring perfect readability on both portrait and landscape devices.</li>
+                    <li><b>Advanced Touch Gestures</b>: Implemented long-press to drag, swipe-to-scroll, and double-tap
+                        to instantly deploy units.</li>
+                    <li><b>Dynamic HUD Stacking</b>: In portrait mode, UI panels automatically fold and stack to
+                        preserve screen real estate.</li>
+                </ul>
+
+                <h3><span class="tag fix">Logic Fixes</span> Fixes</h3>
+                <ul>
+                    <li><b>AI Initialization Deadlock</b>: Fixed a bug where the AI player would refuse to deploy cards
+                        if the user bypassed the "Auto-Place" feature and manually dragged cards to the board.</li>
+                    <li><b>Debug Panel Occlusion</b>: Relocated dev-tools so they no longer block the Opponent's island
+                        powers on 6" smartphones.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="release-item">
+            <div class="release-header">
+                <div>
+                    <h2 class="version">v1.0.0 - The Neon Launch</h2>
+                </div>
+                <div class="date">March 2026</div>
+            </div>
+            <div class="release-content">
+                <p>The initial release of the Sea Hunter WebGL framework. Establishes the core gameplay loop and visual
+                    identity.</p>
+
+                <h3><span class="tag system">Core Framework</span> System</h3>
+                <ul>
+                    <li>Tactical Card Combat Engine (Frontline/Reserve mechanics).</li>
+                    <li>Autonomous AI opponent capable of dynamic threat evaluation.</li>
+                    <li>Island Power System: Radar, Maneuver, Support, Camouflage.</li>
+                    <li>Cyberpunk "Neon" graphical standard integrated.</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
