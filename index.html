@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sea Hunter | Megumi Joy Studio</title>
+    <style>
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-green: #39ff14;
+            --neon-red: #ff3131;
+            --graphite: #1a1a1a;
+            --deep-sea: #050510;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.05);
+            --bg-color: var(--deep-sea);
+            --text-color: var(--white);
+            --accent-color: var(--neon-blue);
+            --nav-bg: rgba(5, 5, 16, 0.9);
+        }
+
+        body.light-theme {
+            --bg-color: #f5f7fa;
+            --text-color: #2d3436;
+            --deep-sea: #f5f7fa;
+            --glass: rgba(0, 0, 0, 0.05);
+            --accent-color: #0984e3;
+            --nav-bg: rgba(245, 247, 250, 0.9);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            letter-spacing: 2px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 30px;
+            margin-right: 15px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            opacity: 1;
+            color: var(--accent-color);
+        }
+
+        /* --- Hero Section --- */
+        header {
+            height: 100vh;
+            background: linear-gradient(to bottom, rgba(5, 5, 16, 0.3), rgba(5, 5, 16, 1)),
+                url('screenshots/tablet_10in/04_tutorial_battle.png') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .hero-content {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            backdrop-filter: blur(5px);
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            color: var(--white);
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+        }
+
+        .cta-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+            border: 2px solid var(--accent-color);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--accent-color);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.6);
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--glass);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text-color);
+            background: var(--glass);
+            transform: translateY(-3px);
+        }
+
+        /* --- Features Section --- */
+        .features {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+
+        .section-title span {
+            color: var(--accent-color);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: linear-gradient(145deg, rgba(26, 26, 26, 0.8), rgba(10, 10, 10, 0.9));
+            padding: 40px 30px;
+            border-radius: 12px;
+            border: 1px solid var(--glass);
+            text-align: center;
+            transition: transform 0.3s ease, border-color 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+
+        .feature-card p {
+            color: #aaa;
+            line-height: 1.7;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 40px 20px;
+            border-top: 1px solid var(--glass);
+            text-align: center;
+            color: #888;
+        }
+
+        .footer-links {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+                letter-spacing: 4px;
+            }
+
+            .tagline {
+                font-size: 1.1rem;
+            }
+
+            .btn {
+                width: 100%;
+                margin-bottom: 15px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            nav {
+                padding: 15px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">SEA HUNTER</a>
+        <div class="nav-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="game.html">Play Game</a>
+            <a href="about.html">Game Manual</a>
+            <a href="releases.html">Release Notes</a>
+        </div>
+    </nav>
+
+    <header>
+        <div class="hero-content">
+            <h1>Sea Hunter</h1>
+            <div class="tagline">Tactical Naval Strategy in Your Browser</div>
+            <p style="color: #ccc; margin-bottom: 40px; font-size: 1.1rem;">
+                Deploy your fleet, capture strategic islands, and outmaneuver the AI in this fast-paced neon maritime
+                combat game. No downloads required.
+            </p>
+            <div class="cta-container">
+                <a href="game.html" class="btn btn-primary">Play Immediately</a>
+                <a href="about.html" class="btn btn-secondary">Read Intel</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="features">
+        <h2 class="section-title">Studio <span>Features</span></h2>
+        <div class="grid">
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>Mobile Optimized UX</h3>
+                <p>Play seamlessly on any device. Features dimension-aware UI scaling, smart HUD folding, and intuitive
+                    touch gestures like swipe-to-scroll and double-tap deployment.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3>Adaptive AI Engine</h3>
+                <p>Face off against an autonomous command AI that evaluates board states dynamically. Supports seamless
+                    transition between manual and auto-placement strategies.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">✨</div>
+                <h3>Neon Aesthetics</h3>
+                <p>Immerse yourself in a high-fidelity tactical environment featuring responsive 3D cards, particle
+                    impact effects, and a cohesive cyberpunk naval design language.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Megumi Joy Studio. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="about.html#rules">Rules</a>
+            <a href="releases.html">Releases</a>
+            <a href="about.html#studio">Other Games</a>
+            <a href="privacy.html">Privacy</a>
+        </div>
+    </footer>
+
+</body>
+
+</html>
