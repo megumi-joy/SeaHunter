@@ -1,422 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+		<title>Sea Hunter</title>
+		<style>
+html, body, #canvas {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sea Hunter | Megumi Joy Studio</title>
-    <style>
-        :root {
-            --neon-blue: #00f3ff;
-            --neon-green: #39ff14;
-            --neon-red: #ff3131;
-            --graphite: #1a1a1a;
-            --deep-sea: #050510;
-            --white: #ffffff;
-            --glass: rgba(255, 255, 255, 0.05);
-            --bg-color: var(--deep-sea);
-            --text-color: var(--white);
-            --accent-color: var(--neon-blue);
-            --nav-bg: rgba(5, 5, 16, 0.9);
-        }
+body {
+	color: white;
+	background-color: black;
+	overflow: hidden;
+	touch-action: none;
+}
 
-        body.light-theme {
-            --bg-color: #f5f7fa;
-            --text-color: #2d3436;
-            --deep-sea: #f5f7fa;
-            --glass: rgba(0, 0, 0, 0.05);
-            --accent-color: #0984e3;
-            --nav-bg: rgba(245, 247, 250, 0.9);
-        }
+#canvas {
+	display: block;
+}
 
-        * {
-            box-sizing: border-box;
-        }
+#canvas:focus {
+	outline: none;
+}
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            line-height: 1.6;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
+#status, #status-splash, #status-progress {
+	position: absolute;
+	left: 0;
+	right: 0;
+}
 
-        /* --- Navigation --- */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: var(--nav-bg);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid var(--glass);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 40px;
-        }
+#status, #status-splash {
+	top: 0;
+	bottom: 0;
+}
 
-        .logo {
-            font-weight: bold;
-            font-size: 1.5rem;
-            color: var(--accent-color);
-            letter-spacing: 2px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
+#status {
+	background-color: #242424;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	visibility: hidden;
+}
 
-        .logo img {
-            height: 30px;
-            margin-right: 15px;
-        }
+#status-splash {
+	max-height: 100%;
+	max-width: 100%;
+	margin: auto;
+}
 
-        .nav-links {
-            display: flex;
-            gap: 25px;
-            align-items: center;
-        }
+#status-progress, #status-notice {
+	display: none;
+}
 
-        .nav-links a {
-            color: var(--text-color);
-            text-decoration: none;
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.8;
-            transition: 0.3s;
-        }
+#status-progress {
+	bottom: 10%;
+	width: 50%;
+	margin: 0 auto;
+}
 
-        .nav-links a:hover,
-        .nav-links a.active {
-            opacity: 1;
-            color: var(--accent-color);
-        }
+#status-notice {
+	background-color: #5b3943;
+	border-radius: 0.5rem;
+	border: 1px solid #9b3943;
+	color: #e0e0e0;
+	font-family: 'Noto Sans', 'Droid Sans', Arial, sans-serif;
+	line-height: 1.3;
+	margin: 0 2rem;
+	overflow: hidden;
+	padding: 1rem;
+	text-align: center;
+	z-index: 1;
+}
+		</style>
+		<link id="-gd-engine-icon" rel="icon" type="image/png" href="index.icon.png" />
+<link rel="apple-touch-icon" href="index.apple-touch-icon.png"/>
 
-        /* --- Hero Section --- */
-        header {
-            height: 100vh;
-            background: linear-gradient(to bottom, rgba(5, 5, 16, 0.3), rgba(5, 5, 16, 1)),
-                url('screenshots/tablet_10in/04_tutorial_battle.png') center/cover no-repeat;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 20px;
-            position: relative;
-        }
+	</head>
+	<body>
+		<canvas id="canvas">
+			Your browser does not support the canvas tag.
+		</canvas>
 
-        .hero-content {
-            background: rgba(0, 0, 0, 0.4);
-            padding: 40px;
-            border-radius: 20px;
-            border: 1px solid rgba(0, 243, 255, 0.2);
-            backdrop-filter: blur(5px);
-            max-width: 800px;
-            animation: fadeInUp 1s ease-out;
-        }
+		<noscript>
+			Your browser does not support JavaScript.
+		</noscript>
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
+		<div id="status">
+			<img id="status-splash" src="index.png" alt="">
+			<progress id="status-progress"></progress>
+			<div id="status-notice"></div>
+		</div>
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+		<script src="index.js"></script>
+		<script>
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":62049808,"index.wasm":35376909},"focusCanvas":true,"gdextensionLibs":[]};
+const GODOT_THREADS_ENABLED = false;
+const engine = new Engine(GODOT_CONFIG);
 
-        h1 {
-            font-size: 4rem;
-            margin: 0 0 10px 0;
-            text-transform: uppercase;
-            letter-spacing: 8px;
-            color: var(--white);
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-        }
+(function () {
+	const statusOverlay = document.getElementById('status');
+	const statusProgress = document.getElementById('status-progress');
+	const statusNotice = document.getElementById('status-notice');
 
-        .tagline {
-            font-size: 1.5rem;
-            color: var(--accent-color);
-            margin-bottom: 40px;
-            letter-spacing: 2px;
-        }
+	let initializing = true;
+	let statusMode = '';
 
-        .cta-container {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
+	function setStatusMode(mode) {
+		if (statusMode === mode || !initializing) {
+			return;
+		}
+		if (mode === 'hidden') {
+			statusOverlay.remove();
+			initializing = false;
+			return;
+		}
+		statusOverlay.style.visibility = 'visible';
+		statusProgress.style.display = mode === 'progress' ? 'block' : 'none';
+		statusNotice.style.display = mode === 'notice' ? 'block' : 'none';
+		statusMode = mode;
+	}
 
-        .btn {
-            display: inline-block;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+	function setStatusNotice(text) {
+		while (statusNotice.lastChild) {
+			statusNotice.removeChild(statusNotice.lastChild);
+		}
+		const lines = text.split('\n');
+		lines.forEach((line) => {
+			statusNotice.appendChild(document.createTextNode(line));
+			statusNotice.appendChild(document.createElement('br'));
+		});
+	}
 
-        .btn-primary {
-            background: var(--accent-color);
-            color: #000;
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
-            border: 2px solid var(--accent-color);
-        }
+	function displayFailureNotice(err) {
+		console.error(err);
+		if (err instanceof Error) {
+			setStatusNotice(err.message);
+		} else if (typeof err === 'string') {
+			setStatusNotice(err);
+		} else {
+			setStatusNotice('An unknown error occured');
+		}
+		setStatusMode('notice');
+		initializing = false;
+	}
 
-        .btn-primary:hover {
-            background: transparent;
-            color: var(--accent-color);
-            box-shadow: 0 0 30px rgba(0, 243, 255, 0.6);
-            transform: translateY(-3px);
-        }
+	const missing = Engine.getMissingFeatures({
+		threads: GODOT_THREADS_ENABLED,
+	});
 
-        .btn-secondary {
-            background: transparent;
-            color: var(--white);
-            border: 2px solid var(--glass);
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--text-color);
-            background: var(--glass);
-            transform: translateY(-3px);
-        }
-
-        /* --- Features Section --- */
-        .features {
-            padding: 100px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 60px;
-            color: var(--white);
-            text-transform: uppercase;
-            letter-spacing: 4px;
-        }
-
-        .section-title span {
-            color: var(--accent-color);
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-
-        .feature-card {
-            background: linear-gradient(145deg, rgba(26, 26, 26, 0.8), rgba(10, 10, 10, 0.9));
-            padding: 40px 30px;
-            border-radius: 12px;
-            border: 1px solid var(--glass);
-            text-align: center;
-            transition: transform 0.3s ease, border-color 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent-color);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            display: inline-block;
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--accent-color);
-        }
-
-        .feature-card p {
-            color: #aaa;
-            line-height: 1.7;
-        }
-
-        /* --- Footer --- */
-        footer {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 40px 20px;
-            border-top: 1px solid var(--glass);
-            text-align: center;
-            color: #888;
-        }
-
-        .footer-links {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-        }
-
-        .footer-links a {
-            color: #aaa;
-            text-decoration: none;
-            transition: 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: var(--accent-color);
-        }
-
-        /* --- Responsive --- */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-                letter-spacing: 4px;
-            }
-
-            h1 {
-                font-size: 2.5rem;
-                letter-spacing: 4px;
-            }
-
-            .tagline {
-                font-size: 1.1rem;
-            }
-
-            .btn {
-                width: 100%;
-                margin-bottom: 15px;
-            }
-
-            nav {
-                padding: 15px 20px;
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .nav-container {
-                width: 100%;
-            }
-
-            .burger-menu {
-                display: block;
-            }
-
-            .nav-links {
-                display: none;
-                flex-direction: column;
-                width: 100%;
-                gap: 15px;
-                margin-top: 15px;
-                border-top: 1px solid var(--glass);
-                padding-top: 15px;
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .lang-switch {
-                margin-left: 0;
-                justify-content: center;
-            }
-        }
-    </style>
-</head>
-
-<body>
-
-    <nav>
-        <div class="nav-container">
-            <a href="index.html" class="logo">SEA HUNTER</a>
-
-            <div class="lang-switch">
-                <button class="lang-btn active">EN</button>
-                <button class="lang-btn">ES</button>
-                <button class="lang-btn">RU</button>
-            </div>
-
-            <button class="burger-menu"
-                onclick="document.getElementById('nav-links').classList.toggle('active')">☰</button>
-        </div>
-
-        <div class="nav-links" id="nav-links">
-            <a href="index.html" class="active" data-i18n="nav_home">Home</a>
-            <a href="game.html" data-i18n="nav_play">Play Game</a>
-            <a href="about.html" data-i18n="nav_manual">Game Manual</a>
-            <a href="releases.html" data-i18n="nav_releases">Release Notes</a>
-            <button class="theme-toggle" onclick="toggleTheme()" style="margin-left: auto;">Comfort Mode</button>
-        </div>
-    </nav>
-
-    <header>
-        <div class="hero-content">
-            <h1>Sea Hunter</h1>
-            <div class="tagline" data-i18n="hero_tagline">Next-Generation Naval Combat Engine</div>
-            <p style="color: #ccc; margin-bottom: 40px; font-size: 1.1rem;" data-i18n="hero_desc">
-                Experience studio-grade tactical warfare directly in your browser. Command nuclear submarines, deploy
-                stealth maneuvers, and outsmart an adaptive AI—all with zero downloads and ultra-fast WebGL rendering.
-            </p>
-            <div class="cta-container">
-                <a href="game.html" class="btn btn-primary" data-i18n="btn_start">Start Simulation</a>
-                <a href="about.html" class="btn btn-secondary" data-i18n="btn_manual">Read Manual</a>
-            </div>
-        </div>
-    </header>
-
-    <section class="features">
-        <h2 class="section-title" data-i18n="feat_title">Studio <span>Features</span></h2>
-        <div class="grid">
-            <div class="feature-card">
-                <div class="feature-icon">📱</div>
-                <h3 data-i18n="feat_1_title">Mobile Optimized UX</h3>
-                <p data-i18n="feat_1_desc">Play seamlessly on any device. Features dimension-aware UI scaling, smart HUD
-                    folding, and intuitive touch gestures like swipe-to-scroll and double-tap deployment.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🤖</div>
-                <h3 data-i18n="feat_2_title">Adaptive AI Engine</h3>
-                <p data-i18n="feat_2_desc">Face off against an autonomous command AI that evaluates board states
-                    dynamically. Supports seamless transition between manual and auto-placement strategies.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">✨</div>
-                <h3 data-i18n="feat_3_title">Neon Aesthetics</h3>
-                <p data-i18n="feat_3_desc">Immerse yourself in a high-fidelity tactical environment featuring responsive
-                    3D cards, particle impact effects, and a cohesive cyberpunk naval design language.</p>
-            </div>
-        </div>
-    </section>
-
-    <footer id="contact">
-        <div>
-            <div class="footer-logo">SEA HUNTER</div>
-            <p data-i18n="footer_rights">&copy; 2026 Megumi Joy Studio. All rights reserved.</p>
-        </div>
-        <div class="footer-links">
-            <b data-i18n="footer_sitemap">Site Map</b>
-            <a href="index.html" data-i18n="nav_home">Home</a>
-            <a href="game.html" data-i18n="nav_play">Play Game</a>
-            <a href="about.html" data-i18n="nav_manual">Game Manual</a>
-            <a href="releases.html" data-i18n="nav_releases">Release Notes</a>
-        </div>
-        <div class="footer-links">
-            <b data-i18n="footer_contact">Contact</b>
-            <a href="mailto:support@megumijoy.com">Email Support</a>
-            <a href="#">X / Twitter</a>
-            <a href="privacy.html" data-i18n="footer_privacy">Privacy</a>
-        </div>
-    </footer>
-
-    <script src="i18n.js"></script>
-</body>
-
+	if (missing.length !== 0) {
+		if (GODOT_CONFIG['serviceWorker'] && GODOT_CONFIG['ensureCrossOriginIsolationHeaders'] && 'serviceWorker' in navigator) {
+			// There's a chance that installing the service worker would fix the issue
+			Promise.race([
+				navigator.serviceWorker.getRegistration().then((registration) => {
+					if (registration != null) {
+						return Promise.reject(new Error('Service worker already exists.'));
+					}
+					return registration;
+				}).then(() => engine.installServiceWorker()),
+				// For some reason, `getRegistration()` can stall
+				new Promise((resolve) => {
+					setTimeout(() => resolve(), 2000);
+				}),
+			]).catch((err) => {
+				console.error('Error while registering service worker:', err);
+			}).then(() => {
+				window.location.reload();
+			});
+		} else {
+			// Display the message as usual
+			const missingMsg = 'Error\nThe following features required to run Godot projects on the Web are missing:\n';
+			displayFailureNotice(missingMsg + missing.join('\n'));
+		}
+	} else {
+		setStatusMode('progress');
+		engine.startGame({
+			'onProgress': function (current, total) {
+				if (current > 0 && total > 0) {
+					statusProgress.value = current;
+					statusProgress.max = total;
+				} else {
+					statusProgress.removeAttribute('value');
+					statusProgress.removeAttribute('max');
+				}
+			},
+		}).then(() => {
+			setStatusMode('hidden');
+		}, displayFailureNotice);
+	}
+}());
+		</script>
+	</body>
 </html>
+
