@@ -282,6 +282,11 @@
                 letter-spacing: 4px;
             }
 
+            h1 {
+                font-size: 2.5rem;
+                letter-spacing: 4px;
+            }
+
             .tagline {
                 font-size: 1.1rem;
             }
@@ -291,12 +296,37 @@
                 margin-bottom: 15px;
             }
 
-            .nav-links {
-                display: none;
-            }
-
             nav {
                 padding: 15px 20px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav-container {
+                width: 100%;
+            }
+
+            .burger-menu {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                gap: 15px;
+                margin-top: 15px;
+                border-top: 1px solid var(--glass);
+                padding-top: 15px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .lang-switch {
+                margin-left: 0;
+                justify-content: center;
             }
         }
     </style>
@@ -305,64 +335,77 @@
 <body>
 
     <nav>
-        <a href="index.html" class="logo">SEA HUNTER</a>
-        <div class="nav-links">
-            <a href="index.html" class="active">Home</a>
-            <a href="game.html">Play Game</a>
-            <a href="about.html">Game Manual</a>
-            <a href="releases.html">Release Notes</a>
+        <div class="nav-container">
+            <a href="index.html" class="logo">SEA HUNTER</a>
+
+            <div class="lang-switch">
+                <button class="lang-btn active">EN</button>
+                <button class="lang-btn">ES</button>
+                <button class="lang-btn">RU</button>
+            </div>
+
+            <button class="burger-menu"
+                onclick="document.getElementById('nav-links').classList.toggle('active')">☰</button>
+        </div>
+
+        <div class="nav-links" id="nav-links">
+            <a href="index.html" class="active" data-i18n="nav_home">Home</a>
+            <a href="game.html" data-i18n="nav_play">Play Game</a>
+            <a href="about.html" data-i18n="nav_manual">Game Manual</a>
+            <a href="releases.html" data-i18n="nav_releases">Release Notes</a>
         </div>
     </nav>
 
     <header>
         <div class="hero-content">
             <h1>Sea Hunter</h1>
-            <div class="tagline">Tactical Naval Strategy in Your Browser</div>
-            <p style="color: #ccc; margin-bottom: 40px; font-size: 1.1rem;">
-                Deploy your fleet, capture strategic islands, and outmaneuver the AI in this fast-paced neon maritime
-                combat game. No downloads required.
+            <div class="tagline" data-i18n="hero_tagline">Next-Generation Naval Combat Engine</div>
+            <p style="color: #ccc; margin-bottom: 40px; font-size: 1.1rem;" data-i18n="hero_desc">
+                Experience studio-grade tactical warfare directly in your browser. Command nuclear submarines, deploy
+                stealth maneuvers, and outsmart an adaptive AI—all with zero downloads and ultra-fast WebGL rendering.
             </p>
             <div class="cta-container">
-                <a href="game.html" class="btn btn-primary">Play Immediately</a>
-                <a href="about.html" class="btn btn-secondary">Read Intel</a>
+                <a href="game.html" class="btn btn-primary" data-i18n="btn_start">Start Simulation</a>
+                <a href="about.html" class="btn btn-secondary" data-i18n="btn_manual">Read Manual</a>
             </div>
         </div>
     </header>
 
     <section class="features">
-        <h2 class="section-title">Studio <span>Features</span></h2>
+        <h2 class="section-title" data-i18n="feat_title">Studio <span>Features</span></h2>
         <div class="grid">
             <div class="feature-card">
                 <div class="feature-icon">📱</div>
-                <h3>Mobile Optimized UX</h3>
-                <p>Play seamlessly on any device. Features dimension-aware UI scaling, smart HUD folding, and intuitive
-                    touch gestures like swipe-to-scroll and double-tap deployment.</p>
+                <h3 data-i18n="feat_1_title">Mobile Optimized UX</h3>
+                <p data-i18n="feat_1_desc">Play seamlessly on any device. Features dimension-aware UI scaling, smart HUD
+                    folding, and intuitive touch gestures like swipe-to-scroll and double-tap deployment.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🤖</div>
-                <h3>Adaptive AI Engine</h3>
-                <p>Face off against an autonomous command AI that evaluates board states dynamically. Supports seamless
-                    transition between manual and auto-placement strategies.</p>
+                <h3 data-i18n="feat_2_title">Adaptive AI Engine</h3>
+                <p data-i18n="feat_2_desc">Face off against an autonomous command AI that evaluates board states
+                    dynamically. Supports seamless transition between manual and auto-placement strategies.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">✨</div>
-                <h3>Neon Aesthetics</h3>
-                <p>Immerse yourself in a high-fidelity tactical environment featuring responsive 3D cards, particle
-                    impact effects, and a cohesive cyberpunk naval design language.</p>
+                <h3 data-i18n="feat_3_title">Neon Aesthetics</h3>
+                <p data-i18n="feat_3_desc">Immerse yourself in a high-fidelity tactical environment featuring responsive
+                    3D cards, particle impact effects, and a cohesive cyberpunk naval design language.</p>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 Megumi Joy Studio. All rights reserved.</p>
+        <p data-i18n="footer_rights">&copy; 2026 Megumi Joy Studio. All rights reserved.</p>
         <div class="footer-links">
-            <a href="about.html#rules">Rules</a>
-            <a href="releases.html">Releases</a>
-            <a href="about.html#studio">Other Games</a>
-            <a href="privacy.html">Privacy</a>
+            <a href="about.html#rules" data-i18n="nav_rules">Rules</a>
+            <a href="releases.html" data-i18n="nav_releases">Releases</a>
+            <a href="about.html#studio" data-i18n="footer_other">Other Games</a>
+            <a href="privacy.html" data-i18n="footer_privacy">Privacy</a>
         </div>
     </footer>
 
+    <script src="i18n.js"></script>
 </body>
 
 </html>
