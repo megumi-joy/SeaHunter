@@ -512,22 +512,6 @@
             });
         }
 
-        function toggleTheme() {
-            document.body.classList.toggle('light-theme');
-            const btn = document.querySelector('.theme-toggle');
-            if (document.body.classList.contains('light-theme')) {
-                btn.textContent = 'Tactical Mode';
-                localStorage.setItem('theme', 'light');
-            } else {
-                btn.textContent = 'Comfort Mode';
-                localStorage.setItem('theme', 'dark');
-            }
-        }
-
-        // Initialize
-        if (localStorage.getItem('theme') === 'light') {
-            document.body.classList.add('light-theme');
-        }
         switchTab('tablet10');
     </script>
     <script src="i18n.js"></script>

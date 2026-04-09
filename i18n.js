@@ -11,7 +11,7 @@ const translations = {
         'hero_desc': 'Experience studio-grade tactical warfare directly in your browser. Command nuclear submarines, deploy stealth maneuvers, and outsmart an adaptive AI—all with zero downloads and ultra-fast WebGL rendering.',
         'btn_start': 'Start Simulation',
         'btn_manual': 'Read Manual',
-        'feat_title': 'Studio <span>Features</span>',
+        'feat_title': 'Game <span>Features</span>',
         'feat_1_title': 'Mobile Optimized UX',
         'feat_1_desc': 'Play seamlessly on any device. Features dimension-aware UI scaling, smart HUD folding, and intuitive touch gestures like swipe-to-scroll and double-tap deployment.',
         'feat_2_title': 'Adaptive AI Engine',
@@ -21,6 +21,8 @@ const translations = {
         'footer_rights': '© 2026 Megumi Joy Studio. All rights reserved.',
         'footer_other': 'Other Games',
         'footer_privacy': 'Privacy',
+        'footer_sitemap': 'Site Map',
+        'footer_contact': 'Contact',
         'releases_title': 'Release <span class="accent">History</span>',
         'releases_desc': 'Changelog, updates, and tactical improvements to the Sea Hunter framework.'
     },
@@ -36,7 +38,7 @@ const translations = {
         'hero_desc': 'Experimenta tácticas de guerra de nivel de estudio en tu navegador. Comanda submarinos nucleares y burla a una IA adaptativa, con renderizado WebGL ultrarrápido y sin descargas.',
         'btn_start': 'Iniciar Simulación',
         'btn_manual': 'Leer Manual',
-        'feat_title': 'Características <span>del Estudio</span>',
+        'feat_title': 'Características <span>del Juego</span>',
         'feat_1_title': 'UX Optimizada para Móviles',
         'feat_1_desc': 'Juega sin problemas en cualquier dispositivo con UI adaptable, interfaz inteligente y gestos rápidos como doble toque para desplegar.',
         'feat_2_title': 'Motor de IA Adaptativa',
@@ -46,6 +48,8 @@ const translations = {
         'footer_rights': '© 2026 Megumi Joy Studio. Todos los derechos reservados.',
         'footer_other': 'Otros Juegos',
         'footer_privacy': 'Privacidad',
+        'footer_sitemap': 'Mapa del Sitio',
+        'footer_contact': 'Contacto',
         'releases_title': 'Historial de <span class="accent">Versiones</span>',
         'releases_desc': 'Registro de cambios, actualizaciones y mejoras tácticas para el ecosistema de Sea Hunter.'
     },
@@ -61,7 +65,7 @@ const translations = {
         'hero_desc': 'Окунитесь в тактические бои студийного уровня прямо в браузере. Командуйте ядерными подлодками, применяйте стелс и перехитрите адаптивный ИИ без скачиваний — с ультра-быстрым WebGL рендерингом.',
         'btn_start': 'Запуск Симуляции',
         'btn_manual': 'Читать Инструкцию',
-        'feat_title': 'Особенности <span>Студии</span>',
+        'feat_title': 'Особенности <span>Игры</span>',
         'feat_1_title': 'Мобильная Оптимизация UX',
         'feat_1_desc': 'Умный интерфейс сам подстраивается под экран. Добавлены интуитивные жесты: свайпы и дабл-тапы для мгновенной расстановки карт.',
         'feat_2_title': 'Адаптивный ИИ',
@@ -71,12 +75,19 @@ const translations = {
         'footer_rights': '© 2026 Megumi Joy Studio. Все права защищены.',
         'footer_other': 'Другие Игры',
         'footer_privacy': 'Конфиденциальность',
+        'footer_sitemap': 'Карта Сайта',
+        'footer_contact': 'Контакты',
         'releases_title': 'История <span class="accent">Обновлений</span>',
         'releases_desc': 'Список изменений, патчей и тактических улучшений фреймворка Sea Hunter.'
     }
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Handle theme logic globally
+    if (localStorage.getItem('theme') === 'light') {
+        document.body.classList.add('light-theme');
+    }
+
     // Determine language, default to 'en'
     let currentLang = localStorage.getItem('lang') || 'en';
     applyTranslations(currentLang);
@@ -94,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function applyTranslations(lang) {
     if (!translations[lang]) lang = 'en'; // fallback
-    
+
     // Update active button UI
     document.querySelectorAll('.lang-btn').forEach(btn => {
         if (btn.textContent.toLowerCase() === lang) {
@@ -111,4 +122,26 @@ function applyTranslations(lang) {
             el.innerHTML = translations[lang][key];
         }
     });
+
+    // Translate theme button if present
+    const themeBtn = document.querySelector('.theme-toggle');
+    if (themeBtn) {
+        if (document.body.classList.contains('light-theme')) {
+            themeBtn.innerHTML = translations[lang]['theme_tactical'] || 'Tactical Mode';
+        } else {
+            themeBtn.innerHTML = translations[lang]['theme_comfort'] || 'Comfort Mode';
+        }
+    }
+}
+
+function toggleTheme() {
+    document.body.classList.toggle('light-theme');
+    const lang = localStorage.getItem('lang') || 'en';
+
+    if (document.body.classList.contains('light-theme')) {
+        localStorage.setItem('theme', 'light');
+    } else {
+        localStorage.setItem('theme', 'dark');
+    }
+    applyTranslations(lang);
 }
