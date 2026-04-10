@@ -368,29 +368,29 @@
 
     <header>
         <h1>Sea Hunter</h1>
-        <p>Tactical Naval Card Combat</p>
-        <a href="game.html" class="play-btn">START SIMULATION</a>
+        <p data-i18n="hero_subtitle">Tactical Naval Card Combat</p>
+        <a href="game.html" class="play-btn" data-i18n="btn_start">START SIMULATION</a>
     </header>
 
     <div class="container">
         <!-- Rules -->
         <section id="rules">
-            <h2>Command Rules</h2>
+            <h2 data-i18n="rules_title">Command Rules</h2>
             <div class="grid">
                 <div class="card">
-                    <h3>Fleet Deployment</h3>
+                    <h3 data-i18n="rules_deploy">Fleet Deployment</h3>
                     <ul class="rules-list">
-                        <li>Deploy units to Frontline or Reserve.</li>
-                        <li>Frontline units engage in direct combat.</li>
-                        <li>Reserve units provide support and depth.</li>
+                        <li data-i18n="rules_deploy_1">Deploy units to Frontline or Reserve.</li>
+                        <li data-i18n="rules_deploy_2">Frontline units engage in direct combat.</li>
+                        <li data-i18n="rules_deploy_3">Reserve units provide support and depth.</li>
                     </ul>
                 </div>
                 <div class="card">
-                    <h3>Engagement</h3>
+                    <h3 data-i18n="rules_engage">Engagement</h3>
                     <ul class="rules-list">
-                        <li>Attack islands to gain tactical superiority.</li>
-                        <li>Mines and Subs provide hidden tactical layers.</li>
-                        <li>Victory is achieved by total fleet control.</li>
+                        <li data-i18n="rules_engage_1">Attack islands to gain tactical superiority.</li>
+                        <li data-i18n="rules_engage_2">Mines and Subs provide hidden tactical layers.</li>
+                        <li data-i18n="rules_engage_3">Victory is achieved by total fleet control.</li>
                     </ul>
                 </div>
             </div>
@@ -398,31 +398,31 @@
 
         <!-- Tutorial -->
         <section id="tutorial">
-            <h2>Mission Guide</h2>
+            <h2 data-i18n="tut_title">Mission Guide</h2>
             <div class="grid">
                 <div class="card">
-                    <h3>1. Preparation</h3>
-                    <p>Select your fleet from the lobby and enter the combat zone.</p>
+                    <h3 data-i18n="tut_prep">1. Preparation</h3>
+                    <p data-i18n="tut_prep_desc">Select your fleet from the lobby and enter the combat zone.</p>
                 </div>
                 <div class="card">
-                    <h3>2. Tactics</h3>
-                    <p>Use the tactical analysis engine to predict enemy movements.</p>
+                    <h3 data-i18n="tut_tact">2. Tactics</h3>
+                    <p data-i18n="tut_tact_desc">Use the tactical analysis engine to predict enemy movements.</p>
                 </div>
                 <div class="card">
-                    <h3>3. Victory</h3>
-                    <p>Execute successful strikes and secure the islands.</p>
+                    <h3 data-i18n="tut_vict">3. Victory</h3>
+                    <p data-i18n="tut_vict_desc">Execute successful strikes and secure the islands.</p>
                 </div>
             </div>
         </section>
 
         <!-- Gallery -->
         <section id="gallery">
-            <h2>Intel Gallery</h2>
+            <h2 data-i18n="gal_title">Intel Gallery</h2>
             <div class="tabs">
-                <button class="tab-btn active" onclick="switchTab('phone')">Phone</button>
-                <button class="tab-btn" onclick="switchTab('tablet7')">7" Tablet</button>
-                <button class="tab-btn" onclick="switchTab('tablet10')">10" Tablet</button>
-                <button class="tab-btn" onclick="switchTab('pc')">PC</button>
+                <button class="tab-btn active" onclick="switchTab('phone')" data-i18n="gal_phone">Phone</button>
+                <button class="tab-btn" onclick="switchTab('tablet7')" data-i18n="gal_tab7">7" Tablet</button>
+                <button class="tab-btn" onclick="switchTab('tablet10')" data-i18n="gal_tab10">10" Tablet</button>
+                <button class="tab-btn" onclick="switchTab('pc')" data-i18n="gal_pc">PC</button>
             </div>
             <div class="gallery" id="image-gallery">
                 <!-- Dynamic Content -->
@@ -431,16 +431,19 @@
 
         <!-- Studio -->
         <section id="studio">
-            <h2>Studio Hub</h2>
+            <h2 data-i18n="studio_title">Studio Hub</h2>
             <div class="grid">
                 <div class="card" style="border: 2px solid var(--neon-green);">
                     <h3>TILES</h3>
-                    <p>Procedural world builder and puzzle adventure. Sync your progress across Sea Hunter.</p>
-                    <a href="#" class="nav-links" style="color: var(--neon-green);">View Project</a>
+                    <p data-i18n="studio_tiles_desc">Procedural world builder and puzzle adventure. Sync your progress
+                        across Sea Hunter.</p>
+                    <a href="#" class="nav-links" style="color: var(--neon-green);" data-i18n="studio_view">View
+                        Project</a>
                 </div>
                 <div class="card">
-                    <h3>Future Projects</h3>
-                    <p>Developing high-motion tactical games with the Godify pipeline.</p>
+                    <h3 data-i18n="studio_future">Future Projects</h3>
+                    <p data-i18n="studio_future_desc">Developing high-motion tactical games with the Godify pipeline.
+                    </p>
                 </div>
             </div>
         </section>
@@ -449,19 +452,19 @@
     <footer id="contact">
         <div>
             <div class="footer-logo">SEA HUNTER STUDIO</div>
-            <p>Advancing Godot Engine performance through automation and premium design.</p>
+            <p data-i18n="footer_desc">Advancing Godot Engine performance through automation and premium design.</p>
         </div>
         <div class="footer-links">
-            <b>Site Map</b>
-            <a href="index.html">Home</a>
-            <a href="game.html">Play Game</a>
-            <a href="releases.html">Version History</a>
-            <a href="#gallery">Media Gallery</a>
-            <a href="#studio">Studio Hub</a>
+            <b data-i18n="footer_sitemap">Site Map</b>
+            <a href="index.html" data-i18n="nav_home">Home</a>
+            <a href="game.html" data-i18n="nav_play">Play Game</a>
+            <a href="releases.html" data-i18n="nav_releases">Version History</a>
+            <a href="#gallery" data-i18n="nav_gallery">Media Gallery</a>
+            <a href="#studio" data-i18n="studio_title">Studio Hub</a>
         </div>
         <div class="footer-links">
-            <b>Contact</b>
-            <a href="mailto:support@megumijoy.com">Email Support</a>
+            <b data-i18n="footer_contact">Contact</b>
+            <a href="mailto:support@megumijoy.com" data-i18n="footer_email">Email Support</a>
             <a href="#">X / Twitter</a>
             <a href="#">Discord</a>
         </div>
