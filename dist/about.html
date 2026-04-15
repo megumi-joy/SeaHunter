@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sea Hunter | Tactical Naval Studio</title>
+    <style>
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-green: #39ff14;
+            --neon-red: #ff3131;
+            --graphite: #1a1a1a;
+            --deep-sea: #050510;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.05);
+            --bg-color: var(--deep-sea);
+            --text-color: var(--white);
+            --accent-color: var(--neon-blue);
+            --nav-bg: rgba(5, 5, 16, 0.9);
+        }
+
+        body.light-theme {
+            --bg-color: #f5f7fa;
+            --text-color: #2d3436;
+            --deep-sea: #f5f7fa;
+            --glass: rgba(0, 0, 0, 0.05);
+            --accent-color: #0984e3;
+            --nav-bg: rgba(245, 247, 250, 0.9);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 40px;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+            color: var(--accent-color);
+        }
+
+        .theme-toggle {
+            padding: 5px 15px;
+            border: 1px solid var(--accent-color);
+            border-radius: 15px;
+            background: transparent;
+            color: var(--accent-color);
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        /* --- Hero --- */
+        header {
+            height: 70vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9)),
+                url('screenshots/tablet_10in/04_tutorial_battle.png') center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 60px;
+        }
+
+        h1 {
+            font-size: 5rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 15px;
+            color: var(--accent-color);
+            text-shadow: 0 0 30px var(--accent-color);
+        }
+
+        .play-btn {
+            display: inline-block;
+            padding: 15px 50px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            margin-top: 30px;
+            box-shadow: 0 0 20px var(--accent-color);
+            transition: 0.3s;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 40px var(--accent-color);
+        }
+
+        /* --- Sections --- */
+        section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            border-left: 4px solid var(--accent-color);
+            padding-left: 15px;
+            margin-bottom: 30px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--glass);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* --- Gallery Tabs --- */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .tab-btn {
+            background: var(--glass);
+            border: 1px solid var(--glass);
+            color: var(--text-color);
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .tab-btn.active {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery img {
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid var(--glass);
+            transition: 0.3s;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+            border-color: var(--accent-color);
+        }
+
+        /* --- Rules/Tutorial --- */
+        .rules-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .rules-list li {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .rules-list li::before {
+            content: "⚓";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 60px 40px;
+            border-top: 1px solid var(--glass);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .footer-logo {
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .footer-links a {
+            display: block;
+            color: var(--text-color);
+            text-decoration: none;
+            opacity: 0.6;
+            margin-bottom: 5px;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .lang-switch {
+            display: flex;
+            gap: 10px;
+            margin-left: 20px;
+        }
+
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass);
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: 0.3s;
+        }
+
+        .lang-btn:hover,
+        .lang-btn.active {
+            background: var(--accent-color);
+            color: #000;
+            border-color: var(--accent-color);
+        }
+
+        .burger-menu {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+                letter-spacing: 5px;
+            }
+
+            footer {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                padding: 15px 20px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav-container {
+                width: 100%;
+            }
+
+            .burger-menu {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                gap: 15px;
+                margin-top: 15px;
+                border-top: 1px solid var(--glass);
+                padding-top: 15px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .lang-switch {
+                margin-left: 0;
+                justify-content: center;
+            }
+
+            .theme-toggle {
+                margin-top: 10px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">SEA HUNTER</a>
+
+            <div class="lang-switch">
+                <button class="lang-btn active">EN</button>
+                <button class="lang-btn">ES</button>
+                <button class="lang-btn">RU</button>
+            </div>
+
+            <button class="burger-menu"
+                onclick="document.getElementById('nav-links').classList.toggle('active')">☰</button>
+        </div>
+
+        <div class="nav-links" id="nav-links">
+            <a href="index.html" data-i18n="nav_home">Home</a>
+            <a href="game.html" data-i18n="nav_play">Play Game</a>
+            <a href="#rules" data-i18n="nav_rules">Rules</a>
+            <a href="#tutorial" data-i18n="nav_tutorial">How to Play</a>
+            <a href="#gallery" data-i18n="nav_gallery">Gallery</a>
+            <a href="releases.html" data-i18n="nav_releases">Releases</a>
+            <button class="theme-toggle" onclick="toggleTheme()" style="margin-left: auto;">Comfort Mode</button>
+        </div>
+    </nav>
+
+    <header>
+        <h1>Sea Hunter</h1>
+        <p data-i18n="hero_subtitle">Tactical Naval Card Combat</p>
+        <a href="game.html" class="play-btn" data-i18n="btn_start">START SIMULATION</a>
+    </header>
+
+    <div class="container">
+        <!-- Rules -->
+        <section id="rules">
+            <h2 data-i18n="rules_title">Command Rules</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3 data-i18n="rules_deploy">Fleet Deployment</h3>
+                    <ul class="rules-list">
+                        <li data-i18n="rules_deploy_1">Deploy units to Frontline or Reserve.</li>
+                        <li data-i18n="rules_deploy_2">Frontline units engage in direct combat.</li>
+                        <li data-i18n="rules_deploy_3">Reserve units provide support and depth.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 data-i18n="rules_engage">Engagement</h3>
+                    <ul class="rules-list">
+                        <li data-i18n="rules_engage_1">Attack islands to gain tactical superiority.</li>
+                        <li data-i18n="rules_engage_2">Mines and Subs provide hidden tactical layers.</li>
+                        <li data-i18n="rules_engage_3">Victory is achieved by total fleet control.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tutorial -->
+        <section id="tutorial">
+            <h2 data-i18n="tut_title">Mission Guide</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3 data-i18n="tut_prep">1. Preparation</h3>
+                    <p data-i18n="tut_prep_desc">Select your fleet from the lobby and enter the combat zone.</p>
+                </div>
+                <div class="card">
+                    <h3 data-i18n="tut_tact">2. Tactics</h3>
+                    <p data-i18n="tut_tact_desc">Use the tactical analysis engine to predict enemy movements.</p>
+                </div>
+                <div class="card">
+                    <h3 data-i18n="tut_vict">3. Victory</h3>
+                    <p data-i18n="tut_vict_desc">Execute successful strikes and secure the islands.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery -->
+        <section id="gallery">
+            <h2 data-i18n="gal_title">Intel Gallery</h2>
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('phone')" data-i18n="gal_phone">Phone</button>
+                <button class="tab-btn" onclick="switchTab('tablet7')" data-i18n="gal_tab7">7" Tablet</button>
+                <button class="tab-btn" onclick="switchTab('tablet10')" data-i18n="gal_tab10">10" Tablet</button>
+                <button class="tab-btn" onclick="switchTab('pc')" data-i18n="gal_pc">PC</button>
+            </div>
+            <div class="gallery" id="image-gallery">
+                <!-- Dynamic Content -->
+            </div>
+        </section>
+
+        <!-- Studio -->
+        <section id="studio">
+            <h2 data-i18n="studio_title">Studio Hub</h2>
+            <div class="grid">
+                <div class="card" style="border: 2px solid var(--neon-green);">
+                    <h3>TILES</h3>
+                    <p data-i18n="studio_tiles_desc">Procedural world builder and puzzle adventure. Sync your progress
+                        across Sea Hunter.</p>
+                    <a href="#" class="nav-links" style="color: var(--neon-green);" data-i18n="studio_view">View
+                        Project</a>
+                </div>
+                <div class="card">
+                    <h3 data-i18n="studio_future">Future Projects</h3>
+                    <p data-i18n="studio_future_desc">Developing high-motion tactical games with the Godify pipeline.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer id="contact">
+        <div>
+            <div class="footer-logo">SEA HUNTER STUDIO</div>
+            <p data-i18n="footer_desc">Advancing Godot Engine performance through automation and premium design.</p>
+        </div>
+        <div class="footer-links">
+            <b data-i18n="footer_sitemap">Site Map</b>
+            <a href="index.html" data-i18n="nav_home">Home</a>
+            <a href="game.html" data-i18n="nav_play">Play Game</a>
+            <a href="releases.html" data-i18n="nav_releases">Version History</a>
+            <a href="#gallery" data-i18n="nav_gallery">Media Gallery</a>
+            <a href="#studio" data-i18n="studio_title">Studio Hub</a>
+        </div>
+        <div class="footer-links">
+            <b data-i18n="footer_contact">Contact</b>
+            <a href="mailto:support@megumijoy.com" data-i18n="footer_email">Email Support</a>
+            <a href="#">X / Twitter</a>
+            <a href="#">Discord</a>
+        </div>
+    </footer>
+
+    <script>
+        const screenshotData = {
+            'phone': [
+                'screenshots/phone/01_main_menu.png', 'screenshots/phone/02_tutorial_intro.png',
+                'screenshots/phone/03_tutorial_setup.png', 'screenshots/phone/04_tutorial_battle.png',
+                'screenshots/phone/05_tutorial_combat.png', 'screenshots/phone/06_tutorial_islands.png',
+                'screenshots/phone/07_tutorial_special.png', 'screenshots/phone/08_tutorial_victory.png'
+            ],
+            'tablet7': [
+                'screenshots/tablet_7in/01_main_menu.png', 'screenshots/tablet_7in/02_tutorial_intro.png',
+                'screenshots/tablet_7in/03_tutorial_setup.png', 'screenshots/tablet_7in/04_tutorial_battle.png',
+                'screenshots/tablet_7in/05_tutorial_combat.png', 'screenshots/tablet_7in/06_tutorial_islands.png',
+                'screenshots/tablet_7in/07_tutorial_special.png', 'screenshots/tablet_7in/08_tutorial_victory.png'
+            ],
+            'tablet10': [
+                'screenshots/tablet_10in/01_main_menu.png', 'screenshots/tablet_10in/02_tutorial_intro.png',
+                'screenshots/tablet_10in/03_tutorial_setup.png', 'screenshots/tablet_10in/04_tutorial_battle.png',
+                'screenshots/tablet_10in/05_tutorial_combat.png', 'screenshots/tablet_10in/06_tutorial_islands.png',
+                'screenshots/tablet_10in/07_tutorial_special.png', 'screenshots/tablet_10in/08_tutorial_victory.png'
+            ],
+            'pc': [
+                'screenshots/pc/01_main_menu.png', 'screenshots/pc/02_tutorial_intro.png',
+                'screenshots/pc/03_tutorial_setup.png', 'screenshots/pc/04_tutorial_battle.png',
+                'screenshots/pc/05_tutorial_combat.png', 'screenshots/pc/06_tutorial_islands.png',
+                'screenshots/pc/07_tutorial_special.png', 'screenshots/pc/08_tutorial_victory.png'
+            ]
+        };
+
+        function switchTab(platform) {
+            const btns = document.querySelectorAll('.tab-btn');
+            btns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const gallery = document.getElementById('image-gallery');
+            gallery.innerHTML = '';
+
+            const images = screenshotData[platform] || [];
+            images.forEach(src => {
+                const img = document.createElement('img');
+                img.src = src;
+                img.onerror = () => { img.src = 'https://via.placeholder.com/400x225?text=Awaiting+Recapture'; };
+                gallery.appendChild(img);
+            });
+        }
+
+        switchTab('tablet10');
+    </script>
+    <script src="i18n.js"></script>
+</body>
+
+</html>
